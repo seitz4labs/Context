@@ -19,5 +19,5 @@ export default function MyProv(props) {
 
 export const useMyProv = () => {
   const myContext = useContext(MyContext);
-  return { cCount: myContext.cCount, updateCount: myContext.updateCount };
+  return { cCount: myContext.count, updateCount: myContext.update };
 };

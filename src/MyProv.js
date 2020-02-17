@@ -1,17 +1,36 @@
-import React, { useState, useContext } from "react";
+import React, { useReducer, useContext } from "react";
 
 const MyContext = React.createContext();
 
-export default function MyProv(props) {
-  const [cCount, setCCount] = useState({ c1: 5, c2: 10 });
+const initialState = { c1: 5, c2: 10 };
 
-  const updateCount = newCCount => {
-    console.log("updatecount " + newCCount.c1 + " " + newCCount.c2);
-    setCCount(newCCount);
+function reducer(state, action) {
+  console.log("updatecount " + action.type);
+  switch (action.type) {
+    case "incC1":
+      return { ...state, c1: state.c1 + 1 };
+    case "incC2":
+      return { ...state, c2: state.c2 + 1 };
+    default:
+      throw new Error();
+  }
+}
+
+export default function MyProv(props) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const myContext = {
+    c1c2: state,
+    inc1: () => {
+      dispatch({ type: "incC1" });
+    },
+    inc2: () => {
+      dispatch({ type: "incC2" });
+    }
   };
 
   return (
-    <MyContext.Provider value={{ count: cCount, update: updateCount }}>
+    <MyContext.Provider value={myContext}>
       {props.children}xx
     </MyContext.Provider>
   );
@@ -19,5 +38,5 @@ export default function MyProv(props) {
 
 export const useMyProv = () => {
   const myContext = useContext(MyContext);
-  return [myContext.count, myContext.update];
+  return [myContext.c1c2, myContext.inc1, myContext.inc2];
 };

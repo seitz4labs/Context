@@ -1,13 +1,13 @@
 import React from "react";
 import { useMyProv } from "./MyProv";
 
-export default function Sub2() {
+export default function Sub2b() {
   const [cCount] = useMyProv();
-  console.log("Sub2");
+  console.log("Sub2b");
   return (
     <div>
-      <h3>sub2</h3>
-      cCount a = {cCount.c1}
+      <h3>sub2b</h3>
+      cCount b = {cCount.c2}
     </div>
   );
 }

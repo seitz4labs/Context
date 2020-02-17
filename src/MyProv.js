@@ -3,10 +3,10 @@ import React, { useState, useContext } from "react";
 const MyContext = React.createContext();
 
 export default function MyProv(props) {
-  const [cCount, setCCount] = useState(300);
+  const [cCount, setCCount] = useState({ c1: 5, c2: 10 });
 
   const updateCount = newCCount => {
-    console.log("updatecount " + newCCount);
+    console.log("updatecount " + newCCount.c1 + " " + newCCount.c2);
     setCCount(newCCount);
   };
 
@@ -19,5 +19,5 @@ export default function MyProv(props) {
 
 export const useMyProv = () => {
   const myContext = useContext(MyContext);
-  return { cCount: myContext.count, updateCount: myContext.update };
+  return [myContext.count, myContext.update];
 };

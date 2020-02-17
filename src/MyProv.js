@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
-export const MyContext = React.createContext();
+const MyContext = React.createContext();
 
 export default function MyProv(props) {
   const [cCount, setCCount] = useState(300);
@@ -16,3 +16,8 @@ export default function MyProv(props) {
     </MyContext.Provider>
   );
 }
+
+export const useMyProv = () => {
+  const myContext = useContext(MyContext);
+  return { cCount: myContext.cCount, updateCount: myContext.updateCount };
+};

@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "./styles.css";
 import Sub1 from "./Sub1";
 import Control from "./Control";
 import MyProv from "./MyProv";
-import marked from "marked";
+import TextWithMarkdown from "./TextWithMarkdown";
 
 export default function App() {
   console.log("App");
-  const mdText = marked("# title \n<b>Hi</b>", false);
+  const [body, setBody] = useState(
+    "initial Body is what you want\n  # This is a title\n  ## subtitle\n  1. famoto\n  1. amogo\n     * apple\n     * today\n  ```\n    note: This is code\n     other: 'stuff'\n  ```"
+  );
   return (
     <div className="App">
       <MyProv>
@@ -15,7 +17,8 @@ export default function App() {
         <Sub1 />
         <Control />
       </MyProv>
-      <div dangerouslySetInnerHTML={{ __html: mdText }} />
+      <textarea value={body} onChange={(e) => setBody(e.target.value)} />
+      <TextWithMarkdown text={body} />
     </div>
   );
 }
